@@ -1,8 +1,10 @@
 #!/bin/bash
 
 usage() {
+  local name=$(basename $0)
+  name=${name%.sh}
   cat <<EOM
-  Usage: $(basename $0) ipAddress
+  Usage: ${name} ipAddress
 EOM
   exit 0
 }
