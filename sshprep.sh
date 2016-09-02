@@ -9,16 +9,32 @@ EOM
   exit 0
 }
 
-if [ $# -eq 0 ]; then
+# Validate param
+if [[ $# -eq 0 ]]; then
   usage;
+  exit 1
 fi
 
-files() {
-  local local_path=$([ -n "$SSHPREP_LOCAL_FILES_PATH" ] && echo "$SSHPREP_LOCAL_FILES_PATH" || echo "$HOME")
+host=$1
 
-  if [ ! -d "$local_path" ]; then
-    echo "Directory does not exist: $local_path"
+# Would be defined in .bashrc
+declare -a sshprep_files=(
+  "$HOME/.bashrc"
+  "$HOME/.vimrc"
+);
+
+# Validate $sshprepf_files
+if [[ -z $sshprep_files ]]; then
+  echo "ERROR: 'sshprep_files' not defined"
+  exit 1
+fi
+
+# Validate all files exist
+for file in "${sshprep_files[@]}"; do
+  if [[ ! -f "${file}" ]]; then
+    echo "ERROR: ${file} not found"
     exit 1
   fi
-}
+done
 
+# TODO: scp and ssh
