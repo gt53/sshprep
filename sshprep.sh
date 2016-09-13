@@ -1,15 +1,10 @@
 #!/bin/bash
 
-TEXT_GREEN=$(tput setaf 2)
-TEXT_YELLOW=$(tput setaf 3)
-TEXT_RED=$(tput setaf 1)
-TEXT_RESET=$(tput sgr0)
-
-usage() {
+sshprep_usage() {
   cat <<EOM
 Usage: sshprep host-name-or-ip
 
-Setup: Define the array \$sshprep_files somewhere such as ~/.bashrc -- example:
+Setup: Define the array \$sshprep_files somewhere such as ~/.bashrc. Example:
   declare -a sshprep_files=(
     "$HOME/.bashrc"
     "$HOME/.vimrc"
@@ -20,19 +15,23 @@ EOM
 }
 
 sshprep() {
+  local TEXT_YELLOW=$(tput setaf 3)
+  local TEXT_RED=$(tput setaf 1)
+  local TEXT_RESET=$(tput sgr0)
+
   # Validate host param
   if [ $# -eq 0 ]; then
-    usage;
+    sshprep_usage;
     return 1
   fi
 
-  host=$1
+  local host=$1
 
   # Validate $sshprepf_files
   if [ -z $sshprep_files ]; then
     echo "${TEXT_RED}ERROR: 'sshprep_files' not defined${TEXT_RESET}"
     echo ""
-    usage;
+    sshprep_usage;
     return 1
   fi
 
