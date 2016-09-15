@@ -1,13 +1,16 @@
 # sshprep
 
-A bash function to prepare a host for an ssh session by scp'ing handy files like dotfiles from the local machine to the host.
+A shell script to prepare a host for an ssh session by scp'ing handy files like dotfiles from the local machine to the host.
 
 ## Usage
 
+`sshprep` can be invoked as a command by sourcing the script from `.bashrc`.
+
 ### Setup
+
 Put sshprep.sh on the local system somewhere such as `~/.sshprep.sh`.
 
-In `~/.bashrc`, configure the files to scp and source sshprep:
+In `~/.bashrc`, configure the files to scp and then source sshprep:
 
 ```bash
 if [ -f "$HOME/.sshprep.sh" ]; then
